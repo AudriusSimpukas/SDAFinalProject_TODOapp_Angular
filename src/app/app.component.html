@@ -1,0 +1,266 @@
+<div class="container" id="main-container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="box box-aqua">
+        <div class="box-header ui-sortable-handle" style="cursor: move">
+          <i class="ion ion-clipboard"></i>
+          <h3 class="box-title">To Do List</h3>
+        </div>
+        <div *ngFor="let task of tasks" class="box-body">
+          <ul class="todo-list ui-sortable">
+            <li>
+              <input type="checkbox" value="" name="" />
+              <span class="h5"> {{ task.taskName }} </span>
+              <span class="text"> {{ task.taskPlace }} </span>
+              <small class="label label-danger"
+                ><i class="fa fa-clock-o"></i> {{ task.taskDate }}
+              </small>
+              <div class="tools">
+                <i
+                  (click)="onOpenModal(task, 'edit')"
+                  class="fa fa-edit"
+                  type="button"
+                ></i>
+                <i
+                  (click)="onOpenModal(task, 'delete')"
+                  class="fa fa-trash-o"
+                  type="button"
+                ></i>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="box-footer clearfix no-border">
+          <button
+            type="button"
+            class="btn btn-default pull-right"
+            (click)="onOpenModal(null, 'add')"
+          >
+            <i class="fa fa-plus"></i> Add task
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add task Modal -->
+<div
+  class="modal fade"
+  id="addTaskModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add new task</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form #addForm="ngForm" (ngSubmit)="onAddTask(addForm)">
+        <div class="modal-body mx-3">
+          <div class="md-form mb-1">
+            <input
+              type="text"
+              ngModel
+              name="taskName"
+              id="form34"
+              class="form-control validate"
+              required
+            />
+            <label data-error="wrong" data-success="right" for="form34"
+              >What is Your new task?</label
+            >
+          </div>
+          <div class="md-form mb-1">
+            <input
+              type="text"
+              ngModel
+              name="taskPlace"
+              id="form29"
+              class="form-control validate"
+              required
+            />
+            <label data-error="wrong" data-success="right" for="form29"
+              >Where it will be done?</label
+            >
+          </div>
+          <div class="md-form mb-1">
+            <input
+              type="date"
+              ngModel
+              name="taskDate"
+              id="form32"
+              class="form-control validate"
+              required
+            />
+            <label data-error="wrong" data-success="right" for="form32"
+              >When is the last day to do it?</label
+            >
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button
+            type="button"
+            id="addTaskModalClose"
+            class="btn btn-secondary"
+            data-dismiss="modal"
+          >
+            Close
+          </button>
+          <button
+            [disabled]="addForm.invalid"
+            type="submit"
+            class="btn btn-primary"
+          >
+            Save changes
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Update task Modal -->
+<div
+  class="modal fade"
+  id="updateTaskModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Edit task</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form #editForm="ngForm">
+        <div class="modal-body mx-3">
+          <!-- <div class="md-form mb-1">
+            <input
+              type="hidden"
+              ngModel="{{ editForm?.id }}"
+              name="id"
+              id="form20"
+              class="form-control validate"
+            />
+          </div> -->
+          <div class="md-form mb-1">
+            <input
+              type="text"
+              ngModel="{{ editForm?.taskName }}"
+              name="taskName"
+              id="form34"
+              class="form-control validate"
+            />
+            <label data-error="wrong" data-success="right" for="form34"
+              >What is Your new task?</label
+            >
+          </div>
+          <div class="md-form mb-1">
+            <input
+              type="text"
+              ngModel="{{ editForm?.taskPlace }}"
+              name="taskPlace"
+              id="form29"
+              class="form-control validate"
+            />
+            <label data-error="wrong" data-success="right" for="form29"
+              >Where it will be done?</label
+            >
+          </div>
+          <div class="md-form mb-1">
+            <input
+              type="date"
+              ngModel="{{ editForm?.taskDate }}"
+              name="taskDate"
+              id="form32"
+              class="form-control validate"
+            />
+            <label data-error="wrong" data-success="right" for="form32"
+              >When is the last day to do it?</label
+            >
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            id="updateTaskModalClose"
+            class="btn btn-secondary"
+            data-dismiss="modal"
+          >
+            Close
+          </button>
+          <button
+            (click)="onUpdateTask(editForm.value)"
+            type="submit"
+            class="btn btn-primary"
+          >
+            Save changes
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Delete task Modal -->
+<div
+  class="modal fade"
+  id="deleteTaskModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-danger">
+        <h5 class="modal-title" id="exampleModalLongTitle">Delete task</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-1 text-center">
+          <h6>Do You really want to delete Your task?</h6>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          id="deleteTaskModalClose"
+          class="btn btn-secondary"
+          data-dismiss="modal"
+        >
+          No
+        </button>
+        <button (click)="onDeleteTask(deleteTask?.id)" class="btn btn-danger">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
