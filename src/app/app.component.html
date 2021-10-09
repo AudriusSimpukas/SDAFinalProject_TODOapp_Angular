@@ -17,7 +17,7 @@
               </small>
               <div class="tools">
                 <i
-                  (click)="onOpenModal(task, 'edit')"
+                  (click)="onOpenModal(task, 'update')"
                   class="fa fa-edit"
                   type="button"
                 ></i>
@@ -155,48 +155,48 @@
       </div>
       <form #editForm="ngForm">
         <div class="modal-body mx-3">
-          <!-- <div class="md-form mb-1">
+          <div class="md-form mb-1">
             <input
               type="hidden"
-              ngModel="{{ editForm?.id }}"
+              ngModel="{{editTask?.id}}"
               name="id"
-              id="form20"
+              id="id"
               class="form-control validate"
             />
-          </div> -->
+          </div>
           <div class="md-form mb-1">
             <input
               type="text"
-              ngModel="{{ editForm?.taskName }}"
+              ngModel="{{editTask?.taskName}}"
               name="taskName"
-              id="form34"
+              id="taskName"
               class="form-control validate"
             />
-            <label data-error="wrong" data-success="right" for="form34"
+            <label data-error="wrong" data-success="right" for="taskName"
               >What is Your new task?</label
             >
           </div>
           <div class="md-form mb-1">
             <input
               type="text"
-              ngModel="{{ editForm?.taskPlace }}"
+              ngModel="{{editTask?.taskPlace}}"
               name="taskPlace"
-              id="form29"
+              id="taskPlace"
               class="form-control validate"
             />
-            <label data-error="wrong" data-success="right" for="form29"
+            <label data-error="wrong" data-success="right" for="taskPlace"
               >Where it will be done?</label
             >
           </div>
           <div class="md-form mb-1">
             <input
               type="date"
-              ngModel="{{ editForm?.taskDate }}"
+              ngModel="{{editTask?.taskDate}}"
               name="taskDate"
-              id="form32"
+              id="taskDate"
               class="form-control validate"
             />
-            <label data-error="wrong" data-success="right" for="form32"
+            <label data-error="wrong" data-success="right" for="taskDate"
               >When is the last day to do it?</label
             >
           </div>

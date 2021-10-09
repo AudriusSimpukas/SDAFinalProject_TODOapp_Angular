@@ -48,7 +48,7 @@ export class AppComponent implements OnInit {
   }
 
   public onUpdateTask(task: Task): void {
-    // document.getElementById('updateTaskModalClose').click();
+    document.getElementById('updateTaskModalClose').click();
     this.taskService.updateTasks(task).subscribe(
       (response: Task) => {
         console.log(response);
@@ -82,7 +82,7 @@ export class AppComponent implements OnInit {
     if (mode === 'add') {
       button.setAttribute('data-target', '#addTaskModal');
     }
-    if (mode === 'edit') {
+    if (mode === 'update') {
       this.editTask = task;
       button.setAttribute('data-target', '#updateTaskModal');
     }
